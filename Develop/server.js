@@ -50,7 +50,7 @@ app.post("/api/notes", (req, res) => {
         err
           ? console.error(err)
           : console.log(
-              `Review for ${newReview.product} has been written to JSON file`
+              `Note for ${newNote.product} has been written to JSON file`
             );
       });
 
@@ -68,5 +68,5 @@ app.post("/api/notes", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`App listening at http://localhost:${port}`);
+  console.log(`App listening at http://localhost:${PORT}`);
 });

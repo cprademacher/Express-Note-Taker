@@ -5,9 +5,8 @@ const fs = require("fs");
 
 const uuid = require("./helpers/uuid");
 
-
 // Set the port for the server to listen/run on
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 // Save an instance of express to 'app'
 const app = express();
 // Use middleware
@@ -25,10 +24,10 @@ app.get("/notes", (req, res) => {
 // });
 
 app.get("/api/notes", (req, res) => {
-    fs.readFile("./db/db.json", "utf-8", (error, data) => {
-        const currentNotes = (data && JSON.parse(data)) || [];
-        res.json(currentNotes);
-    });
+  fs.readFile("./db/db.json", "utf-8", (error, data) => {
+    const currentNotes = (data && JSON.parse(data)) || [];
+    res.json(currentNotes);
+  });
 
   console.info(`${req.method} request received to get notes.`);
 });

@@ -5,7 +5,6 @@ const fs = require("fs");
 
 const uuid = require("./helpers/uuid");
 
-const notesData = require("./db/db.json");
 
 // Set the port for the server to listen/run on
 const PORT = 3001;
@@ -21,8 +20,15 @@ app.get("/notes", (req, res) => {
   res.sendFile(path.join(__dirname, "public/notes.html"));
 });
 
+// app.get("/notes", (req, res) => {
+//   res.json("./db/db.json");
+// });
+
 app.get("/api/notes", (req, res) => {
-  res.json(notesData);
+    fs.readFile("./db/db.json", "utf-8", (error, data) => {
+        const currentNotes = (data && JSON.parse(data)) || [];
+        res.json(currentNotes);
+    });
 
   console.info(`${req.method} request received to get notes.`);
 });
@@ -60,7 +66,7 @@ app.post("/api/notes", (req, res) => {
         err
           ? console.error(err)
           : console.log(
-              `Note for ${newNote.product} has been written to JSON file`
+              `Note for ${newNote.title} has been written to JSON file`
             );
       });
 
